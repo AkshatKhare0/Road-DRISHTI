@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ROAD DRISHTI - Results</title>
+</head>
+<body>
+    <h1>Detection Results</h1>
+    <p><strong>File:</strong> {{ result.filename }}</p>
+
+    {% if result.annotated_image_base64 %}
+        <img
+            src="data:image/jpeg;base64,{{ result.annotated_image_base64 }}"
+            alt="Annotated detection result"
+            style="max-width: 100%; border: 1px solid #ccc;"
+        >
+    {% endif %}
+
+    {% if result.detections %}
+        <table border="1" cellpadding="6">
+            <tr>
+                <th>Damage Type</th>
+                <th>Confidence</th>
+                <th>Bounding Box</th>
+            </tr>
+            {% for d in result.detections %}
+            <tr>
+                <td>{{ d.label }} ({{ d.class }})</td>
+                <td>{{ "%.2f"|format(d.confidence * 100) }}%</td>
+                <td>
+                    x1: {{ "%.0f"|format(d.bbox.x1) }},
+                    y1: {{ "%.0f"|format(d.bbox.y1) }},
+                    x2: {{ "%.0f"|format(d.bbox.x2) }},
+                    y2: {{ "%.0f"|format(d.bbox.y2) }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No damage detected.</p>
+    {% endif %}
+
+    <p><a href="/">Upload another image</a></p>
+</body>
+</html>
