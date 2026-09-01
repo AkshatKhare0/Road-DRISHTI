@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ROAD DRISHTI</title>
+</head>
+<body>
+    <h1>ROAD DRISHTI</h1>
+    <p>Upload a road image to detect road damage.</p>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required>
+        <button type="submit">Detect Damage</button>
+    </form>
+</body>
+</html>
